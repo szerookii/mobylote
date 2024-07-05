@@ -26,9 +26,9 @@ jobs:
         mv build/app/outputs/flutter-apk/app-release.apk build/Mobylote-release.apk
 
     - name: Upload APK
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: Mobylote-release.apk
+        name: mobylote-android-release
         path: build/Mobylote-release.apk
 
   build-ios:
@@ -73,5 +73,5 @@ jobs:
     - name: Upload unsigned IPA
       uses: actions/upload-artifact@v3
       with:
-        name: Mobylote-release.ipa
+        name: mobylote-ios-release
         path: build/ios/unsigned/Mobylote-release.ipa
