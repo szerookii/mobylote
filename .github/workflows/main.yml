@@ -13,12 +13,13 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.0.0'
+        channel: 'stable'
+        flutter-version: '3.4.3'
 
     - name: Install dependencies
       run: flutter pub get
@@ -38,12 +39,12 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.0.0'
+        flutter-version: '3.4.3'
 
     - name: Set up Ruby for iOS builds
       uses: ruby/setup-ruby@v1
