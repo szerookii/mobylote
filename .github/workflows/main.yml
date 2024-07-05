@@ -1,10 +1,7 @@
 name: Build APK and unsigned IPA
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   build-android:
@@ -24,13 +21,15 @@ jobs:
       run: flutter pub get
 
     - name: Build APK
-      run: flutter build apk --release
+      run: |
+        flutter build apk --release
+        mv build/app/outputs/flutter-apk/app-release.apk build/Mobylote-release.apk
 
     - name: Upload APK
       uses: actions/upload-artifact@v3
       with:
-        name: app-release.apk
-        path: build/app/outputs/flutter-apk/app-release.apk
+        name: Mobylote-release.apk
+        path: build/Mobylote-release.apk
 
   build-ios:
     name: Build IPA
@@ -69,10 +68,10 @@ jobs:
         mv build/ios/Release-iphoneos/Runner.app build/ios/unsigned/Payload/Runner.app
         cd build/ios/unsigned
         zip -r Runner.zip Payload
-        mv Runner.zip Runner.ipa
+        mv Runner.zip Mobylote-release.ipa
 
     - name: Upload unsigned IPA
       uses: actions/upload-artifact@v3
       with:
-        name: Runner.ipa
-        path: build/ios/unsigned/Runner.ipa
+        name: Mobylote-release.ipa
+        path: build/ios/unsigned/Mobylote-release.ipa
