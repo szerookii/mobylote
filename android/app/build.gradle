@@ -24,9 +24,10 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace = "com.example.mobylote"
+    namespace = "fr.szeroki.mobylote"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
+    minSdkVersion 21
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -35,7 +36,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.mobylote"
+        applicationId = "fr.szeroki.mobylote"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutter.minSdkVersion
