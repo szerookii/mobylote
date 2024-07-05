@@ -9,10 +9,12 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return profile != null ? _buildProfileCard(profile!) : _buildSkeletonCard();
+    return profile != null
+        ? _buildProfileCard(context, profile!)
+        : _buildSkeletonCard();
   }
 
-  Widget _buildProfileCard(Profile profile) {
+  Widget _buildProfileCard(BuildContext context, Profile profile) {
     return Container(
       width: double.infinity,
       padding: EdgeInsets.all(16.0),
@@ -30,8 +32,9 @@ class ProfileCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Image.network(
               profile.basics.image,
-              width: 100,
-              height: 100,
+              width: MediaQuery.of(context).size.width * 0.2,
+              height: MediaQuery.of(context).size.width * 0.2,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 16),
@@ -58,30 +61,36 @@ class ProfileCard extends StatelessWidget {
                 SizedBox(height: 8),
                 Row(
                   children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
+                    Flexible(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          profile.meta.freelance.seniority,
+                          style: TextStyle(color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      child: Flexible(child: Text(
-                        profile.meta.freelance.seniority,
-                        style: TextStyle(color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                      )),
                     ),
                     SizedBox(width: 8),
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: Colors.teal,
-                        borderRadius: BorderRadius.circular(10),
+                    Flexible(
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.teal,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Text(
+                          profile.meta.freelance.rate + "€ / Jour",
+                          style: TextStyle(color: Colors.black),
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                      child: Flexible(child: Text(
-                        profile.meta.freelance.rate + "€ / Jour",
-                        style: TextStyle(color: Colors.black),
-                        overflow: TextOverflow.ellipsis,
-                      )),
                     ),
                   ],
                 ),
