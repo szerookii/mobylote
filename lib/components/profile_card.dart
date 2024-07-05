@@ -32,7 +32,6 @@ class ProfileCard extends StatelessWidget {
               profile.basics.image,
               width: 100,
               height: 100,
-              fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 16),

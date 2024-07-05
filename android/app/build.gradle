@@ -27,7 +27,6 @@ android {
     namespace = "fr.szeroki.mobylote"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
-    minSdkVersion 21
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
