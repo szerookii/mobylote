@@ -1,37 +1,73 @@
+class Job {
+  final String url;
+  final String tjm;
+  final String city;
+  final String date;
+  final String joursSemaine;
+  final String plateforme;
+  final String remote;
+  final String duree;
+  final String dureeMois;
+  final String aDistanceOuSurPlace;
+  final String title;
+  final String id;
+
+  Job({
+    required this.url,
+    required this.tjm,
+    required this.city,
+    required this.date,
+    required this.joursSemaine,
+    required this.plateforme,
+    required this.remote,
+    required this.duree,
+    required this.dureeMois,
+    required this.aDistanceOuSurPlace,
+    required this.title,
+    required this.id,
+  });
+
+  factory Job.fromJson(Map<String, dynamic> json) {
+    return Job(
+      url: json['URL'] ?? '',
+      tjm: json['TJM'] ?? '',
+      city: json['city'] ?? '',
+      date: json['Date'] ?? '',
+      joursSemaine: json['Jours/semaine'] ?? '',
+      plateforme: json['Plateforme'] ?? '',
+      remote: json['remote'] ?? '',
+      duree: json['Durée'] ?? '',
+      dureeMois: json['Durée_mois'] ?? '',
+      aDistanceOuSurPlace: json['A distance/Sur place'] ?? '',
+      title: json['Title'] ?? '',
+      id: json['id'] ?? ''
+    );
+  }
+}
+
+
 class Profile {
-  final List<dynamic> awards;
   final Basics basics;
-  final List<dynamic> certificates;
   final List<Education> education;
-  final List<dynamic> interests;
   final Meta meta;
-  final List<dynamic> projects;
   final List<Skill> skills;
   final List<Work> work;
 
   Profile({
-    required this.awards,
     required this.basics,
-    required this.certificates,
     required this.education,
-    required this.interests,
     required this.meta,
-    required this.projects,
     required this.skills,
     required this.work,
   });
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
-      awards: json['awards'],
       basics: Basics.fromJson(json['basics']),
-      certificates: json['certificates'],
       education: (json['education'] as List)
           .map((e) => Education.fromJson(e))
           .toList(),
-      interests: json['interests'],
       meta: Meta.fromJson(json['meta']),
-      projects: json['projects'],
       skills: (json['skills'] as List).map((e) => Skill.fromJson(e)).toList(),
       work: (json['work'] as List).map((e) => Work.fromJson(e)).toList(),
     );
@@ -39,37 +75,27 @@ class Profile {
 }
 
 class Basics {
-  final String email;
   final String image;
-  final String label;
   final List<Language> languages;
   final Location location;
   final String name;
   final String phone;
   final List<ProfileLink> profiles;
   final String summary;
-  final String url;
-  final String createdAt;
 
   Basics({
-    required this.email,
     required this.image,
-    required this.label,
     required this.languages,
     required this.location,
     required this.name,
     required this.phone,
     required this.profiles,
     required this.summary,
-    required this.url,
-    required this.createdAt,
   });
 
   factory Basics.fromJson(Map<String, dynamic> json) {
     return Basics(
-      email: json['email'],
       image: json['image'],
-      label: json['label'],
       languages: (json['languages'] as List)
           .map((e) => Language.fromJson(e))
           .toList(),
@@ -80,8 +106,6 @@ class Basics {
           .map((e) => ProfileLink.fromJson(e))
           .toList(),
       summary: json['summary'],
-      url: json['url'],
-      createdAt: json['createdAt'],
     );
   }
 }
@@ -181,8 +205,6 @@ class Meta {
   final String lastName;
   final String importType;
   final bool completion;
-  final bool tutoProfileShared;
-  final bool tutoProfileSync;
 
   Meta({
     required this.firstName,
@@ -190,8 +212,6 @@ class Meta {
     required this.lastName,
     required this.importType,
     required this.completion,
-    required this.tutoProfileShared,
-    required this.tutoProfileSync,
   });
 
   factory Meta.fromJson(Map<String, dynamic> json) {
@@ -201,8 +221,6 @@ class Meta {
       lastName: json['lastName'],
       importType: json['importType'],
       completion: json['completion'],
-      tutoProfileShared: json['tuto_profileShared'],
-      tutoProfileSync: json['tuto_profileSync'],
     );
   }
 }
@@ -211,21 +229,19 @@ class Freelance {
   final String availabilityDate;
   final bool available;
   final bool openToCdi;
+  final List<String>professions;
   final Preferences preferences;
-  final List<String> professions;
-  final String rate;
   final String seniority;
-  final bool vehicle;
+  final String rate;
 
   Freelance({
     required this.availabilityDate,
     required this.available,
     required this.openToCdi,
-    required this.preferences,
     required this.professions,
-    required this.rate,
+    required this.preferences,
     required this.seniority,
-    required this.vehicle,
+    required this.rate,
   });
 
   factory Freelance.fromJson(Map<String, dynamic> json) {
@@ -233,11 +249,10 @@ class Freelance {
       availabilityDate: json['availabilityDate'],
       available: bool.parse(json['available']),
       openToCdi: json['openToCdi'],
-      preferences: Preferences.fromJson(json['preferences']),
       professions: List<String>.from(json['professions']),
-      rate: json['rate'],
+      preferences: Preferences.fromJson(json['preferences']),
       seniority: json['seniority'],
-      vehicle: json['vehicle'],
+      rate: json['rate'],
     );
   }
 }
@@ -249,6 +264,7 @@ class Preferences {
   final List<String> remoteWork;
   final List<String> workAreas;
   final LocationDescription location;
+
 
   Preferences({
     required this.daysPerWeek,

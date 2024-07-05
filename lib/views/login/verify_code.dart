@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobylote/pylote/login.dart';
 import 'package:mobylote/utils/dialog.dart';
+import 'package:mobylote/views/home/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class VerifyCodePage extends StatefulWidget {
@@ -44,7 +45,10 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('id', id);
 
-        // TODO: Navigate to the home page
+        Navigator.push( 
+          context,
+          MaterialPageRoute(builder: (context) => HomePage(id: id)),
+        );
       } else {
         showDialogOk(
           context,
@@ -80,14 +84,14 @@ class _VerifyCodePageState extends State<VerifyCodePage> {
               Text.rich(
                 TextSpan(
                   text: 'Entrez le code que vous avez reçu sur ',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     color: Colors.white,
                   ),
                   children: [
                     TextSpan(
                       text: widget.email,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
                     ),

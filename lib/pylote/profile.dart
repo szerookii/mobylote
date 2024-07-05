@@ -20,9 +20,5 @@ Future<bool> setAvailability(String id, bool available, String availabilityDate)
     "availabilityDate": availabilityDate
   });
   
-  if (response.statusCode == 200) {
-    return true;
-  } else {
-    return false;
-  }
+  return response.statusCode == 200;
 }

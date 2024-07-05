@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobylote/views/login/ask_code.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   final int selectedIndex;
@@ -20,11 +22,11 @@ class CustomBottomAppBar extends StatelessWidget {
         height: 70.0,
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8),
         decoration: BoxDecoration(
-          color: const Color(0xFF23272A),
+          color: const Color(0xFF1A1A1A),
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF23272A).withOpacity(0.3),
+              color: const Color(0xFF1A1A1A).withOpacity(0.3),
               spreadRadius: 2,
               blurRadius: 5,
               offset: const Offset(0, 3),
@@ -35,8 +37,21 @@ class CustomBottomAppBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             _buildIconButton(Icons.home, 0),
-            _buildIconButton(Icons.shopping_cart, 1),
-            _buildIconButton(Icons.person, 3),
+            _buildIconButton(Icons.search, 1),
+            _buildIconButton(Icons.person, 2),
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () async {
+                SharedPreferences prefs = await SharedPreferences.getInstance();
+                await prefs.clear();
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => AskCodePage()),
+                  (Route<dynamic> route) => false,
+                );
+              },
+            ),
           ],
         ),
       ),
