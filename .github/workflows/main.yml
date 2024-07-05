@@ -1,0 +1,78 @@
+name: Build APK and unsigned IPA
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-android:
+    name: Build APK
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.0.0'
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Build APK
+      run: flutter build apk --release
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-release.apk
+        path: build/app/outputs/flutter-apk/app-release.apk
+
+  build-ios:
+    name: Build IPA
+    runs-on: macos-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.0.0'
+
+    - name: Set up Ruby for iOS builds
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.0'
+
+    - name: Install CocoaPods
+      run: sudo gem install cocoapods
+
+    - name: Install dependencies
+      run: flutter pub get
+
+    - name: Install iOS dependencies
+      run: |
+        cd ios
+        pod install
+        cd ..
+
+    - name: Build IPA
+      run: |
+        flutter build ios --release --no-codesign
+        mkdir -p build/ios/unsigned/Payload
+        mv build/ios/Release-iphoneos/Runner.app build/ios/unsigned/Payload/Runner.app
+        cd build/ios/unsigned
+        zip -r Runner.zip Payload
+        mv Runner.zip Runner.ipa
+
+    - name: Upload unsigned IPA
+      uses: actions/upload-artifact@v3
+      with:
+        name: Runner.ipa
+        path: build/ios/unsigned/Runner.ipa
