@@ -1,4 +1,4 @@
-package com.example.mobylote
+package fr.szeroki.mobylote
 
 import io.flutter.embedding.android.FlutterActivity
 

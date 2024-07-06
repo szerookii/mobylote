@@ -1,4 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:mobylote/notifications/notification_service.dart';
 import 'package:mobylote/pylote/types.dart';
 import 'package:mobylote/pylote/profile.dart';
 import 'package:intl/intl.dart';
@@ -6,7 +10,7 @@ import 'package:mobylote/utils/dialog.dart';
 import 'package:shimmer/shimmer.dart';
 
 class StatusCard extends StatefulWidget {
-  StatusCard({super.key, required this.id});
+  const StatusCard({super.key, required this.id});
 
   final String id;
 
@@ -78,8 +82,8 @@ class _StatusCardState extends State<StatusCard> {
 
   Widget _buildSkeleton() {
     return Shimmer.fromColors(
-      baseColor: Color(0xFF2E3B42),
-      highlightColor: Color(0xFF23272A),
+      baseColor: const Color(0xFF2E3B42),
+      highlightColor: const Color(0xFF23272A),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -114,7 +118,7 @@ class _StatusCardState extends State<StatusCard> {
         child: profile == null
             ? _buildSkeleton()
             : Column(
-                key: ValueKey<int>(1),
+                key: const ValueKey<int>(1),
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

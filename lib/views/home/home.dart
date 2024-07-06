@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
               StatusCard(id: widget.id),
-                PreferencesCard(id: widget.id),
+              PreferencesCard(id: widget.id),
             ],
           ),
         ),

@@ -47,7 +47,7 @@ class _JobBoardPageState extends State<JobBoardPage> {
       if (!mounted) return;
       setState(() {
         this.jobs = jobs;
-        this.allJobs = jobs;
+        allJobs = jobs;
       });
     } catch (e) {
       if (!mounted) return;
@@ -212,7 +212,7 @@ class _JobBoardPageState extends State<JobBoardPage> {
     if (jobs == null) return _buildSkeletonGrid();
 
     if (jobs!.isEmpty) {
-      return Center(
+      return const Center(
         child: Text(
           'No jobs found',
           style: TextStyle(color: Colors.white, fontSize: 18),
@@ -249,12 +249,12 @@ class _JobBoardPageState extends State<JobBoardPage> {
 
   Widget _buildSkeletonCard() {
     return Shimmer.fromColors(
-      baseColor: Color(0xFF2E3B42),
-      highlightColor: Color(0xFF23272A),
+      baseColor: const Color(0xFF2E3B42),
+      highlightColor: const Color(0xFF23272A),
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: Color(0xFF23272A),
+          color: const Color(0xFF23272A),
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(

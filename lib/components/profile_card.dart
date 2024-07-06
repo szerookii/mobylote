@@ -3,7 +3,7 @@ import 'package:mobylote/pylote/types.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProfileCard extends StatelessWidget {
-  ProfileCard({super.key, required this.profile});
+  const ProfileCard({super.key, required this.profile});
 
   final Profile? profile;
 
@@ -17,7 +17,7 @@ class ProfileCard extends StatelessWidget {
   Widget _buildProfileCard(BuildContext context, Profile profile) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xFF2E005C), Color(0xFF090030)],
@@ -37,20 +37,20 @@ class ProfileCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          SizedBox(width: 16),
+          const SizedBox(width: 16),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   profile.basics.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   profile.meta.freelance.professions.join(' - '),
                   style: TextStyle(
@@ -58,36 +58,36 @@ class ProfileCard extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   children: [
                     Flexible(
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
                           profile.meta.freelance.seniority,
-                          style: TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.white),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),
-                    SizedBox(width: 8),
+                    const SizedBox(width: 8),
                     Flexible(
                       child: Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
                           color: Colors.teal,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Text(
-                          profile.meta.freelance.rate + "€ / Jour",
-                          style: TextStyle(color: Colors.black),
+                          "${profile.meta.freelance.rate}€ / Jour",
+                          style: const TextStyle(color: Colors.black),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
@@ -104,8 +104,8 @@ class ProfileCard extends StatelessWidget {
 
   Widget _buildSkeletonCard() {
     return Shimmer.fromColors(
-      baseColor: Color(0xFF2E3B42),
-      highlightColor: Color(0xFF23272A),
+      baseColor: const Color(0xFF2E3B42),
+      highlightColor: const Color(0xFF23272A),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

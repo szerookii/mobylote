@@ -9,8 +9,6 @@ import 'package:mobylote/pylote/types.dart';
 import 'package:mobylote/utils/dialog.dart';
 import 'package:mobylote/views/home/home.dart';
 import 'package:mobylote/views/home/job_board.dart';
-import 'package:mobylote/views/login/ask_code.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key, required this.id});

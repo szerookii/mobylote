@@ -43,8 +43,8 @@ class TechCard extends StatelessWidget {
 
   Widget _buildSkeletonCard() {
     return Shimmer.fromColors(
-      baseColor: Color(0xFF2E3B42),
-      highlightColor: Color(0xFF23272A),
+      baseColor: const Color(0xFF2E3B42),
+      highlightColor: const Color(0xFF23272A),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -74,8 +74,8 @@ class TechChip extends StatelessWidget {
         label,
         style: const TextStyle(color: Colors.white),
       ),
-      backgroundColor: Color.fromRGBO(171, 171, 171, 0.16),
-      avatar: CircleAvatar(
+      backgroundColor: const Color.fromRGBO(171, 171, 171, 0.16),
+      avatar: const CircleAvatar(
         backgroundColor: Color.fromRGBO(255, 247, 205, 1),
         child: Text(
           '?',

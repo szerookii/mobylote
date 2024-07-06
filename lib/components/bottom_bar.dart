@@ -7,10 +7,10 @@ class CustomBottomAppBar extends StatelessWidget {
   final ValueChanged<int> onItemTapped;
 
   const CustomBottomAppBar({
-    Key? key,
+    super.key,
     required this.selectedIndex,
     required this.onItemTapped,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class CustomBottomAppBar extends StatelessWidget {
 
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => AskCodePage()),
+                  MaterialPageRoute(builder: (context) => const AskCodePage()),
                   (Route<dynamic> route) => false,
                 );
               },

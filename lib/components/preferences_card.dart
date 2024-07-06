@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:mobylote/pylote/profile.dart';
 import 'package:mobylote/pylote/types.dart';
 import 'package:mobylote/utils/dialog.dart';
@@ -51,8 +50,8 @@ class _PreferencesCardState extends State<PreferencesCard> {
     Padding(
       padding: const EdgeInsets.all(16.0),
       child: Shimmer.fromColors(
-      baseColor: Color(0xFF2E3B42),
-      highlightColor: Color(0xFF23272A),
+      baseColor: const Color(0xFF2E3B42),
+      highlightColor: const Color(0xFF23272A),
       child: Container(
             width: double.infinity,
             height: 380,
@@ -66,9 +65,9 @@ class _PreferencesCardState extends State<PreferencesCard> {
     : Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: Color(0xFF1A1A1A),
+            color: const Color(0xFF1A1A1A),
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: Column(
@@ -83,38 +82,38 @@ class _PreferencesCardState extends State<PreferencesCard> {
                       fontSize: 12,
                     ),
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   _buildPreferenceItem(
                     icon: Icons.hourglass_empty,
-                    iconColor: Color(0xFFF6D365),
+                    iconColor: const Color(0xFFF6D365),
                     label: 'Rythme de travail',
                     value: profile?.meta.freelance.preferences.daysPerWeek ?? 'Indifférent',
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   _buildPreferenceItem(
                     icon: Icons.access_time,
-                    iconColor: Color(0xFFC5E1A5),
+                    iconColor: const Color(0xFFC5E1A5),
                     label: 'Durée de mission',
                     value: profile?.meta.freelance.preferences.missionDuration ?? 'Indifférent',
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   _buildPreferenceItem(
                     icon: Icons.home,
-                    iconColor: Color(0xFFEF9A9A),
+                    iconColor: const Color(0xFFEF9A9A),
                     label: 'Lieu de travail',
                     value: "${profile!.meta.freelance.preferences.remoteWork[0]} +${profile!.meta.freelance.preferences.remoteWork.length - 1}",
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   _buildPreferenceItem(
                     icon: Icons.directions_car,
-                    iconColor: Color(0xFF81D4FA),
+                    iconColor: const Color(0xFF81D4FA),
                     label: 'Mobilité',
                     value: "${profile!.meta.freelance.preferences.mobility[0].label} +${profile!.meta.freelance.preferences.mobility.length - 1}",
                   ),
-                  SizedBox(height: 16.0),
+                  const SizedBox(height: 16.0),
                   _buildPreferenceItem(
                     icon: Icons.location_pin,
-                    iconColor: Color(0xFFF48FB1),
+                    iconColor: const Color(0xFFF48FB1),
                     label: 'Localisation',
                     value: profile?.meta.freelance.preferences.location.description ?? 'Non renseigné',
                   ),
@@ -142,7 +141,7 @@ class _PreferencesCardState extends State<PreferencesCard> {
             size: 20,
           ),
         ),
-        SizedBox(width: 16.0),
+        const SizedBox(width: 16.0),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -153,7 +152,7 @@ class _PreferencesCardState extends State<PreferencesCard> {
                 fontSize: 14,
               ),
             ),
-            SizedBox(height: 4.0),
+            const SizedBox(height: 4.0),
             Text(
               value,
               style: const TextStyle(

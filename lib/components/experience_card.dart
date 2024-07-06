@@ -41,7 +41,7 @@ class ExperiencesList extends StatelessWidget {
                   ExperienceCard(experience: e),
                   const SizedBox(height: 8), // Added padding between experiences
                 ],
-              )).toList(),
+              )),
             ],
           ),
         ],
@@ -71,7 +71,7 @@ class ExperiencesList extends StatelessWidget {
 }
 
 class ExperienceCard extends StatelessWidget {
-  const ExperienceCard({required this.experience});
+  const ExperienceCard({super.key, required this.experience});
 
   final Work experience;
 
