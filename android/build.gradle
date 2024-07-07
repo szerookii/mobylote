@@ -1,9 +1,14 @@
 allprojects {
-    ext.kotlin_version = '1.6.0.'
     repositories {
         google()
         mavenCentral()
         maven { url "${project(':background_fetch').projectDir}/libs" }
+    }
+    ext {
+        kotlin_version = '1.6.0'
+        compileSdkVersion   = 34
+        targetSdkVersion    = 34
+        appCompatVersion    = "1.4.2"
     }
 }
 
