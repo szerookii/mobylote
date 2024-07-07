@@ -12,6 +12,8 @@ class Job {
   final String title;
   final String id;
 
+  String? recruiterThumbnail; // Mobylote only
+
   Job({
     required this.url,
     required this.tjm,
@@ -25,6 +27,7 @@ class Job {
     required this.aDistanceOuSurPlace,
     required this.title,
     required this.id,
+    this.recruiterThumbnail,
   });
 
   factory Job.fromJson(Map<String, dynamic> json) {

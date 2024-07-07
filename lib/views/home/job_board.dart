@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobylote/components/bottom_bar.dart';
 import 'package:mobylote/pylote/job.dart';
+import 'package:mobylote/pylote/recruiter.dart';
 import 'package:mobylote/pylote/types.dart';
 import 'package:mobylote/utils/dialog.dart';
 import 'package:mobylote/views/home/home.dart';
@@ -43,7 +44,8 @@ class _JobBoardPageState extends State<JobBoardPage> {
   _fetchJobs() async {
     try {
       if (!mounted) return;
-      final jobs = await getJobs();
+      List<Job> jobs = await getJobs();
+      await bulkAddRecruiterThumbnails(jobs);
       if (!mounted) return;
       setState(() {
         this.jobs = jobs;
@@ -169,10 +171,22 @@ class _JobBoardPageState extends State<JobBoardPage> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              job.plateforme,
-              style: const TextStyle(color: Colors.grey),
-              overflow: TextOverflow.ellipsis,
+            Row(
+              children: [
+                if (job.recruiterThumbnail != null) 
+                  Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(job.recruiterThumbnail!),
+                      radius: 10,
+                    ),
+                  ),
+                Text(
+                  job.plateforme,
+                  style: const TextStyle(color: Colors.grey),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
             ),
             const SizedBox(height: 4),
             Text(
