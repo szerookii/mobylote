@@ -1,36 +1,37 @@
+import 'dart:developer';
+
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
+import 'package:mobylote/notifications/job_notification_checker.dart';
 import 'package:mobylote/notifications/notification_service.dart';
 import 'package:mobylote/views/home/home.dart';
 import 'package:mobylote/views/login/ask_code.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workmanager/workmanager.dart';
-
-const mobyloteBackgroundRefresh = "fr.szeroki.mobylote.backgroundRefresh";
 
 @pragma('vm:entry-point')
-void callbackDispatcher() {
-  Workmanager().executeTask((task, inputData) async {
-    print("$task started. inputData = $inputData");
-
-    switch (task) {
-      case mobyloteBackgroundRefresh:
-        await NotificationService().displayNotification(
-          "Mobylote",
-          "Hello from background refresh",
-        );
-        break;
-    }
-    
-    return Future.value(true);
-  });
+void backgroundFetchHeadlessTask(HeadlessTask task) async {
+  String taskId = task.taskId;
+  bool isTimeout = task.timeout;
+  if (isTimeout) {
+    log("[BackgroundFetch] Headless task timed-out: $taskId");
+    BackgroundFetch.finish(taskId);
+    return;
+  }
+  
+  await checkJobNotification();
+  BackgroundFetch.finish(taskId);
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NotificationService().init();
-  await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+
+  initializeDateFormatting('fr_FR', null);
 
   runApp(const MobyloteApp());
+
+  BackgroundFetch.registerHeadlessTask(backgroundFetchHeadlessTask);
 }
 
 class MobyloteApp extends StatefulWidget {
@@ -49,24 +50,33 @@ class _MobyloteAppState extends State<MobyloteApp> {
   @override
   void initState() {
     super.initState();
+    initBackgroundFetch();
+  }
 
-    Workmanager().registerPeriodicTask(
-      mobyloteBackgroundRefresh,
-      mobyloteBackgroundRefresh,
-      tag: mobyloteBackgroundRefresh,
-      frequency: const Duration(minutes: 15),
-      initialDelay: const Duration(seconds: 5),
-      existingWorkPolicy: ExistingWorkPolicy.append,
-      backoffPolicy: BackoffPolicy.linear,
-      backoffPolicyDelay: const Duration(seconds: 5),
-      outOfQuotaPolicy: OutOfQuotaPolicy.run_as_non_expedited_work_request,
-      constraints: Constraints(
-        networkType: NetworkType.connected,
-      ),
-      inputData: const <String, dynamic>{},
-    );
+  Future<void> initBackgroundFetch() async {
+    int status = await BackgroundFetch.configure(BackgroundFetchConfig(
+        minimumFetchInterval: 15,
+        stopOnTerminate: false,
+        enableHeadless: true,
+        requiresBatteryNotLow: false,
+        requiresCharging: false,
+        requiresStorageNotLow: false,
+        requiresDeviceIdle: false,
+        requiredNetworkType: NetworkType.ANY,
+    ), (String taskId) async {
+      log("[BackgroundFetch] Event received $taskId");
+      await checkJobNotification();
+      BackgroundFetch.finish(taskId);
+    }, (String taskId) async { 
+      log("[BackgroundFetch] TASK TIMEOUT taskId: $taskId");
+      BackgroundFetch.finish(taskId);
+    });
+    log('[BackgroundFetch] configure success: $status');
 
-    print("Mobylote started");
+    status = await BackgroundFetch.start();
+    log('[BackgroundFetch] start success: $status');
+
+     if (!mounted) return;
   }
 
   @override

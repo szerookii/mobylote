@@ -52,7 +52,7 @@
 	</array>
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
-		<string>fr.szeroki.mobylote.backgroundRefresh</string>
+		<string>com.transistorsoft.fetch</string>
 	</array>
 </dict>
 </plist>

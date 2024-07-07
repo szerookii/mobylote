@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -34,10 +36,9 @@ class NotificationService {
     final InitializationSettings initializationSettings =
         InitializationSettings(
             android: initializationSettingsAndroid,
-            iOS: initializationSettingsIOS,
-            macOS: null);
+            iOS: initializationSettingsIOS);
 
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings, onDidReceiveNotificationResponse: selectNotification, onDidReceiveBackgroundNotificationResponse: selectNotification);
   }
 
   Future<void> displayNotification(String title, String body,
@@ -69,7 +70,10 @@ class NotificationService {
         importance: Importance.max,
       );
 
-  Future selectNotification(String payload) async {}
+  static Future selectNotification(NotificationResponse notificationResponse) async {
+    final String payload = notificationResponse.payload ?? '';
+    await launchUrl(Uri.parse(payload));
+  }
 
   NotificationService._internal();
 }

@@ -109,7 +109,7 @@ class ExperienceCard extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           Text(
-            "${DateFormat('MMMM yyyy').format(DateTime.parse(experience.startDate))} - ${experience.endDate.isNotEmpty ? DateFormat('MMMM yyyy').format(DateTime.parse(experience.endDate)) : 'En cours'}", 
+            "${DateFormat('MMMM yyyy', 'fr_FR').format(DateTime.parse(experience.startDate))} - ${experience.endDate.isNotEmpty ? DateFormat('MMMM yyyy', 'fr_FR').format(DateTime.parse(experience.endDate)) : 'En cours'}", 
             style: const TextStyle(
               fontSize: 14,
               color: Color(0xFFAAAAAA),
